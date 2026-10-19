@@ -2,7 +2,7 @@
 
 # Unique Upload Filenames
 
-### A tiny companion plugin for [g33ki Cloud Storage for Media Library](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)
+### A tiny companion plugin for [OffloadForge - Cloud Media Offload](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)
 
 **Stops same-named uploads from silently overwriting each other on your cloud bucket.**
 
@@ -10,20 +10,22 @@
 [![PHP](https://img.shields.io/badge/PHP-7.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![License](https://img.shields.io/badge/License-GPLv2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/gunjanjaswal/Wordpress-Unique-Upload/releases)
-[![Add-on for g33ki](https://img.shields.io/badge/Add--on%20for-g33ki%20Cloud%20Storage-FF6B6B.svg)](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)
+[![Add-on for OffloadForge](https://img.shields.io/badge/Add--on%20for-OffloadForge-FF6B6B.svg)](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)
 [![Zero config](https://img.shields.io/badge/Setup-Zero%20config-success.svg)](#-installation)
 
 </div>
 
 ---
 
+> **Pairs with OffloadForge - Cloud Media Offload.** Get it on [WordPress.org](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/) or [GitHub](https://github.com/gunjanjaswal/OffloadForge-Cloud-Media-Offload). This add-on protects OffloadForge's *remove local files* option from the filename clash described below.
+
 ## Why this exists
 
-If you offload your media to the cloud with **g33ki Cloud Storage for Media Library** and you have the *remove local files* option switched on, WordPress loses the one thing it relies on to keep filenames unique.
+If you offload your media to the cloud with **[OffloadForge](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)** and you have the *remove local files* option switched on, WordPress loses the one thing it relies on to keep filenames unique.
 
 Here is the chain of events, step by step:
 
-1. You upload `photo.jpg`. g33ki pushes it to your bucket and then deletes the local copy to save disk space.
+1. You upload `photo.jpg`. OffloadForge pushes it to your bucket and then deletes the local copy to save disk space.
 2. A week later, a different `photo.jpg` is uploaded (and yes, a lot of AI image tools happily export everything as `unknown.png` or `image.png`).
 3. WordPress checks for a clash with `wp_unique_filename()`, but that function only looks at the **local** uploads folder, which is now empty.
 4. Seeing no clash, WordPress keeps the name `photo.jpg` and the second file **overwrites the first one on the bucket**.
@@ -76,7 +78,7 @@ You can run this as a normal plugin or as a must-use plugin. Pick whichever fits
 
 1. Download this repository as a ZIP, or clone it.
 2. Copy the folder into `wp-content/plugins/`.
-3. Go to **Plugins** in wp-admin and click **Activate** on *Unique Upload Filenames for g33ki Cloud Storage*.
+3. Go to **Plugins** in wp-admin and click **Activate** on *Unique Upload Filenames for OffloadForge*.
 
 ### Option B: as a must-use plugin (always on, cannot be deactivated by accident)
 
@@ -93,7 +95,7 @@ That is the whole setup. There is nothing to configure.
 
 | Works with | Notes |
 | --- | --- |
-| **g33ki Cloud Storage for Media Library** | This is the add-on's main target. Recommended whenever *remove local files* is enabled. |
+| **[OffloadForge - Cloud Media Offload](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/)** ([GitHub](https://github.com/gunjanjaswal/OffloadForge-Cloud-Media-Offload)) | This is the add-on's main target. Recommended whenever *remove local files* is enabled. |
 | Any other offload or CDN plugin | The same overwrite problem exists with any plugin that removes local copies. This fixes all of them. |
 | Vanilla WordPress with no offload | Harmless. You get guaranteed-unique names and never see WordPress's `-1`, `-2`, `-3` suffixes again. |
 | Multisite | Works per site. Each upload gets its own unique name. |
@@ -151,7 +153,7 @@ No. It only touches new uploads. Your existing library is untouched.
 **Do my URLs become ugly random strings?**
 Not really. The original name stays in front, so `holiday-banner.png` becomes `holiday-banner-261019-a3f90c.png`. Still readable, still searchable, just safe.
 
-**I do not use g33ki. Is this still useful?**
+**I do not use OffloadForge. Is this still useful?**
 Yes. Any time local files are removed after an offload, the same overwrite risk exists. Even without any offload plugin, you simply stop seeing WordPress's automatic `-1`, `-2` renames because every name is unique from the start.
 
 **Does it slow uploads down?**
@@ -187,8 +189,9 @@ Upload 2:  photo.jpg   ->  bucket: /uploads/2026/10/photo-261019-7b2e14.jpg   (s
 
 ### 1.0.0
 - First release.
-- Appends a unique `YYMMDD-xxxxxx` token to every upload.
-- Covers browser uploads and programmatic sideloads.
+- Appends a unique `YYMMDD-xxxxxx` token to every upload, so same-name files cannot overwrite each other on the bucket.
+- Built as a companion for [OffloadForge - Cloud Media Offload](https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/), while working with any offload or CDN plugin.
+- Covers browser uploads and programmatic sideloads (`wp media import`, `media_sideload_image`).
 - Adds the `wuuf_enabled`, `wuuf_token`, and `wuuf_filename` filters.
 
 ---

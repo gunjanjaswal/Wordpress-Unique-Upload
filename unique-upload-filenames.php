@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Unique Upload Filenames for g33ki Cloud Storage
+ * Plugin Name:       Unique Upload Filenames for OffloadForge
  * Plugin URI:        https://github.com/gunjanjaswal/Wordpress-Unique-Upload
- * Description:       Companion add-on for g33ki Cloud Storage for Media Library. Gives every uploaded file a globally unique name so two uploads that share a filename can never overwrite each other on your cloud bucket. g33ki removes the local copy after offloading, which leaves WordPress's built-in duplicate check blind; this closes that gap. Also works alongside any other offload or CDN plugin.
+ * Description:       Companion add-on for OffloadForge - Cloud Media Offload. Gives every uploaded file a globally unique name so two uploads that share a filename can never overwrite each other on your cloud bucket. OffloadForge removes the local copy after offloading, which leaves WordPress's built-in duplicate check blind; this closes that gap. Also works alongside any other offload or CDN plugin.
  * Version:           1.0.0
  * Requires at least: 5.0
  * Requires PHP:      7.0
@@ -12,8 +12,9 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       unique-upload-filenames
  *
- * Built as an add-on for g33ki Cloud Storage for Media Library:
+ * Built as an add-on for OffloadForge - Cloud Media Offload:
  * https://wordpress.org/plugins/g33ki-cloud-storage-for-media-library/
+ * https://github.com/gunjanjaswal/OffloadForge-Cloud-Media-Offload
  *
  * Works as a normal plugin (activate it) or as a must-use plugin (drop it in
  * wp-content/mu-plugins/). Zero configuration. Existing files are never touched.
@@ -29,7 +30,7 @@ if ( ! function_exists( 'wuuf_unique_filename' ) ) {
 	 * Rewrite an incoming upload's filename so it is globally unique.
 	 *
 	 * WordPress normally keeps names unique with wp_unique_filename(), but that
-	 * only scans the LOCAL uploads folder. g33ki Cloud Storage (and other offload
+	 * only scans the LOCAL uploads folder. OffloadForge (and other offload
 	 * or CDN plugins) can delete the local copy after pushing it to remote
 	 * storage, which leaves that check blind, so a second "photo.jpg" keeps its
 	 * name and overwrites the first one on the bucket. This appends a short date
